@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{msgs.borrow_book}</title>
+    </h:head>
+    <h:body>
+        <ui:decorate template="/app_templates/app_template.xhtml"> 
+            <h:form id="manage_events_form">               
+                <p:dataTable id="manage_events_tbl"
+                             class="dataTable"
+                             value="#{BorrowBean.events}"                    
+                             selection="#{BorrowBean.selectedEvent}"
+                             rowKey="#{BorrowBook.borrow_id}"                    
+                             var="event"   
+                             rows="2"     
+                             rowsPerPageTemplate="1,2,3"
+                             dir="#{langBean.dir}"
+                             paginator="true"
+                             paginatorPosition="top" 
+                             paginatorTemplate="#{langBean.isEnglish? '{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}' : '{RowsPerPageDropdown} {LastPageLink} {NextPageLink} {PageLinks} {PreviousPageLink} {FirstPageLink}'}"
+                             >
+
+                    
+
+
+                    <f:facet name="header" id="header">
+                        #{msgs.borrow_book}
+                    </f:facet>
+
+                  
+                  <p:ajax event="rowSelectRadio"
+                            update=":manage_events_form:manage_events_tbl"/>
+                  
+                    <p:column headerText="#{msgs.id}"
+                              style="width:5%"
+                              selectionMode="single"
+                              sortBy="#{langBean.isEnglish?events.nameEn:events.id}">                    
+                        <h:outputText value="#{langBean.isEnglish?event.nameEn:event.id}"/>  
+                    </p:column>
+
+            
+                    <p:column headerText="#{msgs.book_name}"
+                              style="width:20%"
+                              filterBy="#{langBean.isEnglish?events.booknameEn:events.booknameAr}"
+                              filterMatchMode="contains"
+                              sortBy="#{langBean.isEnglish?events.booknameEn:events.booknameAr}">                    
+                        <h:outputText value="#{langBean.isEnglish?events.booknameEn:events.booknameAr}"/>  
+                    </p:column>
+                    
+                   <p:column headerText="#{msgs.author_name}"
+                              style="width:20%"
+                              filterBy="#{langBean.isEnglish?events.booknameEn:events.booknameAr}"
+                              filterMatchMode="contains"
+                              sortBy="#{langBean.isEnglish?events.booknameEn:events.booknameAr}">                    
+                        <h:outputText value="#{langBean.isEnglish?events.booknameEn:events.booknameAr}"/>  
+                    </p:column>
+                    
+                 
+                <p:column headerText="#{msgs.Book_Edition}"
+                              style="width:20%"
+                              filterBy="#{langBean.isEnglish?events.bookeditionEn:events.bookeditionAr}"
+                              filterMatchMode="contains"
+                              sortBy="#{langBean.isEnglish?events.bookeditionEn:events.bookeditionAr}">                    
+                        <h:outputText value="#{langBean.isEnglish?events.bookeditionEn:events.bookeditionAr}"/>  
+                    </p:column>
+                    
+                   <p:column headerText="#{msgs.status}"
+                              style="width:15%"
+                              sortBy="#{langBean.isEnglish?events.bookeditionEn:events.bookeditionAr}">                    
+                    </p:column>   
+
+                    <f:facet name="footer">
+                        <p:toolbar style="border: none">
+                            <p:toolbarGroup align="#{languageBean.screenLeft}">                              
+                                 <p:commandButton value="#{msgs.borrow}"
+                                                icon="ui-icon-borrow"                                  
+                                                iconPos="#{langBean.styleFloat}"
+                                                styleClass="commandButton"
+                                                style="float:#{langBean.styleFloat}" 
+                                                actionListener="#{sessionBean.setSelectedItemId(-1)}"
+                                                action="borrow_button" />    
+
+                            </p:toolbarGroup>
+                        </p:toolbar>
+                    </f:facet>
+                </p:dataTable>
+                                      
+                 
+            </h:form>
+        </ui:decorate>
+    </h:body>
+</html>
+
